@@ -1,14 +1,16 @@
 package task
 
 import (
-	"github.com/fkw3t/gotask/internal/enum"
+	"fmt"
 	"time"
+
+	"github.com/fkw3t/gotask/internal/enum"
 )
 
 type Task struct {
-	Id          *uint16
+	Id          uint16
 	Name        string
-	Description *string
+	Description string
 	Status      enum.Status
 	Deadline    *time.Time
 	DueDate     *time.Time
@@ -20,17 +22,31 @@ type TaskRepo interface {
 	List() ([]*Task, error)
 	Complete(taskId uint16) error
 	Delete(taskId uint16) error
+	Exists(taskId uint16) (bool, error)
+	GetNextId() (uint16, error)
 }
 
 func NewTask(
-	id *uint16,
+	id uint16,
 	name string,
-	description *string,
+	description string,
 	status enum.Status,
 	deadline *time.Time,
 	dueDate *time.Time,
 	createdAt *time.Time,
-) *Task {
+) (*Task, error) {
+	if deadline != nil {
+		if deadline.Before(time.Now()) || deadline.Equal(time.Now()) {
+			return nil, fmt.Errorf("deadline parameter must be a future date")
+		}
+	}
+
+	if dueDate != nil {
+		if dueDate.Before(time.Now()) || dueDate.Equal(time.Now()) {
+			return nil, fmt.Errorf("due date parameter must be a future date")
+		}
+	}
+
 	return &Task{
 		Id:          id,
 		Name:        name,
@@ -39,5 +55,5 @@ func NewTask(
 		Deadline:    deadline,
 		DueDate:     dueDate,
 		CreatedAt:   createdAt,
-	}
+	}, nil
 }
