@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/fkw3t/gotask/cmd"
 	filesystem_repo "github.com/fkw3t/gotask/internal/repository/filesystem"
@@ -10,6 +11,10 @@ import (
 )
 
 func main() {
+	// setup timezone
+	os.Setenv("TZ", "America/Sao_Paulo")
+	time.Local, _ = time.LoadLocation("America/Sao_Paulo")
+
 	//// database as storage
 	// db, err := sql.Open("sqlite3", "./gotask.db")
 	// if err != nil {

@@ -20,6 +20,8 @@ func NewAddTaskUseCase(taskRepo task.TaskRepo) *AddTaskUseCase {
 func (u *AddTaskUseCase) Add(name, description, deadline string) error {
 	var parsedDeadline *time.Time
 	var dueDate *time.Time
+	createdAt := time.Now()
+	fmt.Println("createdAt: ", createdAt)
 	var err error
 
 	id, err := u.taskRepo.GetNextId()
@@ -33,12 +35,6 @@ func (u *AddTaskUseCase) Add(name, description, deadline string) error {
 			return err
 		}
 	}
-
-	location, err := time.LoadLocation("America/Sao_Paulo")
-	if err != nil {
-		fmt.Errorf("failed to load location: %v\n", err)
-	}
-	createdAt := time.Now().In(location)
 
 	task, err := task.NewTask(
 		id,

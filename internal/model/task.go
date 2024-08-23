@@ -41,12 +41,6 @@ func NewTask(
 		}
 	}
 
-	if dueDate != nil {
-		if dueDate.Before(time.Now()) || dueDate.Equal(time.Now()) {
-			return nil, fmt.Errorf("due date parameter must be a future date")
-		}
-	}
-
 	return &Task{
 		Id:          id,
 		Name:        name,
