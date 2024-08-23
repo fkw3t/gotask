@@ -47,19 +47,19 @@ for example:
 
 ```
 $ gotask list
-id    task                description                                    remaining time     created
-1     review John code    pr: https://github.com/john/somerepo/pull/1    2 days             a minute ago
-3     go to the gym       -                                              5 hours            a few seconds ago
+id  name         description      deadline    created
+1   review pr    some pr link xd  in 21 days  a day ago
+3   gym workout  back and biceps  in a month  27 minutes ago
 ```
 
 or for showing all tasks, using a flag (such as -a or --all)
 
 ```
 $ gotask list -a
-id    task                                                description                                  remaining time     due date          status   created
-1     review John code                                    pr: https://github.com/john/somerepo/pull/1  -                  2024-08-10        true     2 minutes ago
-2     Tidy up my desk                                     -                                            1 day              2024-08-13        false    a minute ago
-3     go to the gym                                       -                                            5 hours            2024-08-12        false    a minute ago
+id  name           description      deadline    expired  status   due_date   created
+1   review pr      some pr link xd  in 21 days  false    pending  -          a day ago
+2   clean my desk  -                in 4 years  false    done     a day ago  a day ago
+3   gym workout    back and biceps  in a month  false    pending  -          27 minutes ago
 ```
 
 ### complete
